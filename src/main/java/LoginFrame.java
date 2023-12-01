@@ -13,10 +13,10 @@ public class LoginFrame extends JFrame {
 
         JPanel panel = new JPanel();
         JLabel userLabel = new JLabel("Usuario:");
-        JLabel passLabel = new JLabel("Contrase√±a:");
+        JLabel passLabel = new JLabel("ContraseÒa:");
         usernameField = new JTextField(15);
         passwordField = new JPasswordField(15);
-        JButton loginButton = new JButton("Iniciar Sesi√≥n");
+        JButton loginButton = new JButton("Iniciar Sesion");
 
         loginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -27,7 +27,7 @@ public class LoginFrame extends JFrame {
                     dispose();
                     openMainFrame();
                 } else {
-                    JOptionPane.showMessageDialog(LoginFrame.this, "Usuario o contrase√±a incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(LoginFrame.this, "Usuario o contraseÒa incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

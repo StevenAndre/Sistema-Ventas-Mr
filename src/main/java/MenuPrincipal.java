@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 public class MenuPrincipal extends JFrame {
         public MenuPrincipal() {
-            setTitle("Sistema de Ventas mara帽on");
+            setTitle("Sistema de Ventas mara駉n");
             setSize(400, 300);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setLocationRelativeTo(null);
@@ -34,9 +34,9 @@ class PanelPrincipal extends JPanel{
         JPanel menuPanel = new JPanel();
         menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.PAGE_AXIS));
 
-        JButton btnOpcion1 = new JButton("Opci贸n 1");
-        JButton btnOpcion2 = new JButton("Opci贸n 2");
-        JButton btnOpcion3 = new JButton("Opci贸n 3");
+        JButton btnOpcion1 = new JButton("Opci髇 1");
+        JButton btnOpcion2 = new JButton("Opci髇 2");
+        JButton btnOpcion3 = new JButton("Opci髇 3");
 
         menuPanel.add(btnOpcion1);
         menuPanel.add(btnOpcion2);
@@ -58,7 +58,7 @@ class PanelPrincipal extends JPanel{
             public void actionPerformed(ActionEvent e) {
 
                 viewPanel.removeAll();
-                viewPanel.add(new JLabel("Vista de la Opci贸n 1"), BorderLayout.CENTER);
+                viewPanel.add(new JLabel("Vista de la Opci髇 1"), BorderLayout.CENTER);
                 viewPanel.revalidate();
                 viewPanel.repaint();
             }
@@ -68,7 +68,7 @@ class PanelPrincipal extends JPanel{
             public void actionPerformed(ActionEvent e) {
 
                 viewPanel.removeAll();
-                viewPanel.add(new JLabel("Vista de la Opci贸n 2"), BorderLayout.CENTER);
+                viewPanel.add(new JLabel("Vista de la Opci髇 2"), BorderLayout.CENTER);
                 viewPanel.revalidate();
                 viewPanel.repaint();
             }
