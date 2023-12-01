@@ -33,14 +33,16 @@ class PanelPrincipal extends JPanel{
 
         JPanel menuPanel = new JPanel();
         menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.PAGE_AXIS));
+        menuPanel.setBackground(new Color(220, 193, 206, 107));
 
         JButton btnOpcion1 = new JButton("Opción 1");
         JButton btnOpcion2 = new JButton("Opción 2");
         JButton btnOpcion3 = new JButton("Opción 3");
-
+        JButton btnClientes = new JButton("Clientes");
         menuPanel.add(btnOpcion1);
         menuPanel.add(btnOpcion2);
         menuPanel.add(btnOpcion3);
+        menuPanel.add(btnClientes);
 
 
         JPanel viewPanel = new JPanel();
@@ -52,6 +54,16 @@ class PanelPrincipal extends JPanel{
         add(headerPanel, BorderLayout.NORTH);
         add(menuPanel, BorderLayout.WEST);
         add(viewPanel, BorderLayout.CENTER);
+
+        btnClientes.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                viewPanel.removeAll();
+                viewPanel.add(new ClientesPanel(), BorderLayout.CENTER);
+                viewPanel.revalidate();
+                viewPanel.repaint();
+            }
+        });
 
 
         btnOpcion1.addActionListener(new ActionListener() {
