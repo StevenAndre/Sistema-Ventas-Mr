@@ -23,7 +23,7 @@ public class ClientesPanel extends JPanel {
         JTable table = new JTable(model);
        operaciones.add(table);
 
-        JLabel label = new JLabel("HOLAAAAAA MODULO CLIENTES");
+        JLabel label = new JLabel("MODULO CLIENTES");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setFont(new Font("Arial", Font.BOLD, 20));
         add(label,BorderLayout.NORTH);
@@ -42,7 +42,6 @@ public class ClientesPanel extends JPanel {
         panelBotones.add(listarB);
         panelBotones.add(updateB);
         panelBotones.add(deleteB);
-
 
         add(panelBotones,BorderLayout.SOUTH);
         add(operaciones,BorderLayout.CENTER);

@@ -6,10 +6,10 @@ import java.awt.event.ActionListener;
 public class MenuPrincipal extends JFrame {
         public MenuPrincipal() {
             setTitle("Sistema de Ventas marañon");
-            setSize(400, 300);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setLocationRelativeTo(null);
             add(new PanelPrincipal());
+            setBounds(200,200,900,500);
 
 
         }
