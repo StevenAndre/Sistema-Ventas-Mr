@@ -16,7 +16,7 @@ public class LoginFrame extends JFrame {
         JLabel passLabel = new JLabel("Contraseña:");
         usernameField = new JTextField(15);
         passwordField = new JPasswordField(15);
-        JButton loginButton = new JButton("Iniciar Sesion");
+        JButton loginButton = new JButton("Iniciar Sesión");
 
         loginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

@@ -10,7 +10,6 @@ public class ClientesPanel extends JPanel {
         JPanel  operaciones= new JPanel();
         JPanel  panelBotones= new JPanel(new GridLayout(1,4));
 
-
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Nombre");
         model.addColumn("Email");
@@ -21,7 +20,7 @@ public class ClientesPanel extends JPanel {
         model.addRow(new Object[]{"Pedro", "pedro@example.com", 28, "Plaza Principal"});
         model.addRow(new Object[]{"Laura", "laura@example.com", 22, "Callejon 789"});
         JTable table = new JTable(model);
-       operaciones.add(table);
+        operaciones.add(table);
 
         JLabel label = new JLabel("HOLAAAAAA MODULO CLIENTES");
         label.setHorizontalAlignment(SwingConstants.CENTER);

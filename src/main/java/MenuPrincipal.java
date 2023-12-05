@@ -35,20 +35,14 @@ class PanelPrincipal extends JPanel{
         menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.PAGE_AXIS));
         menuPanel.setBackground(new Color(220, 193, 206, 107));
 
-<<<<<<< HEAD
-        JButton btnOpcion1 = new JButton("Opci髇 1");
+        JButton btnOpcion1 = new JButton("Opci髇n 1");
         JButton btnOpcion2 = new JButton("Opci髇 2");
-        JButton btnOpcion3 = new JButton("Opci髇 3");
-
-=======
-        JButton btnOpcion1 = new JButton("Opci贸n 1");
-        JButton btnOpcion2 = new JButton("Opci贸n 2");
-        JButton btnOpcion3 = new JButton("Opci贸n 3");
+        JButton btnProductos = new JButton("Productos");
         JButton btnClientes = new JButton("Clientes");
->>>>>>> 98b8be42910e939834f3516198194f1b6fa8cd7c
+
         menuPanel.add(btnOpcion1);
         menuPanel.add(btnOpcion2);
-        menuPanel.add(btnOpcion3);
+        menuPanel.add(btnProductos);
         menuPanel.add(btnClientes);
 
 
@@ -62,6 +56,16 @@ class PanelPrincipal extends JPanel{
         add(menuPanel, BorderLayout.WEST);
         add(viewPanel, BorderLayout.CENTER);
 
+        btnProductos.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                viewPanel.removeAll();
+                viewPanel.add(new ProductosPanel(), BorderLayout.CENTER);
+                viewPanel.revalidate();
+                viewPanel.repaint();
+            }
+        });
+        
         btnClientes.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
@@ -93,15 +97,6 @@ class PanelPrincipal extends JPanel{
             }
         });
 
-        btnOpcion3.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                viewPanel.removeAll();
-                viewPanel.add(new JLabel("Vista de la Opci贸n 3"), BorderLayout.CENTER);
-                viewPanel.revalidate();
-                viewPanel.repaint();
-
-            }
-        });
     }
 
 
