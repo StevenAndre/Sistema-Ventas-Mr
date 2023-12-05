@@ -35,13 +35,14 @@ class PanelPrincipal extends JPanel{
         menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.PAGE_AXIS));
         menuPanel.setBackground(new Color(220, 193, 206, 107));
 
-        JButton btnOpcion1 = new JButton("Opción 1");
-        JButton btnOpcion2 = new JButton("Opción 2");
-        JButton btnOpcion3 = new JButton("Opción 3");
+        JButton btnOpcion1 = new JButton("Opci�nn 1");
+        JButton btnOpcion2 = new JButton("Opci�n 2");
+        JButton btnProductos = new JButton("Productos");
         JButton btnClientes = new JButton("Clientes");
+
         menuPanel.add(btnOpcion1);
         menuPanel.add(btnOpcion2);
-        menuPanel.add(btnOpcion3);
+        menuPanel.add(btnProductos);
         menuPanel.add(btnClientes);
 
 
@@ -55,6 +56,16 @@ class PanelPrincipal extends JPanel{
         add(menuPanel, BorderLayout.WEST);
         add(viewPanel, BorderLayout.CENTER);
 
+        btnProductos.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                viewPanel.removeAll();
+                viewPanel.add(new ProductosPanel(), BorderLayout.CENTER);
+                viewPanel.revalidate();
+                viewPanel.repaint();
+            }
+        });
+        
         btnClientes.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
@@ -70,7 +81,7 @@ class PanelPrincipal extends JPanel{
             public void actionPerformed(ActionEvent e) {
 
                 viewPanel.removeAll();
-                viewPanel.add(new JLabel("Vista de la Opción 1"), BorderLayout.CENTER);
+                viewPanel.add(new JLabel("Vista de la Opci�n 1"), BorderLayout.CENTER);
                 viewPanel.revalidate();
                 viewPanel.repaint();
             }
@@ -80,21 +91,12 @@ class PanelPrincipal extends JPanel{
             public void actionPerformed(ActionEvent e) {
 
                 viewPanel.removeAll();
-                viewPanel.add(new JLabel("Vista de la Opción 2"), BorderLayout.CENTER);
+                viewPanel.add(new JLabel("Vista de la Opci�n 2"), BorderLayout.CENTER);
                 viewPanel.revalidate();
                 viewPanel.repaint();
             }
         });
 
-        btnOpcion3.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                viewPanel.removeAll();
-                viewPanel.add(new JLabel("Vista de la Opción 3"), BorderLayout.CENTER);
-                viewPanel.revalidate();
-                viewPanel.repaint();
-
-            }
-        });
     }
 
 
