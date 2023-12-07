@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 public class LoginFrame extends JFrame {
@@ -6,39 +7,74 @@ public class LoginFrame extends JFrame {
     private JPasswordField passwordField;
 
     public LoginFrame() {
-        setTitle("Login");
-        setSize(280, 200);
+        // Configuraci贸n de la ventana principal
+        setTitle("Login Form");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(600, 500);
         setLocationRelativeTo(null);
+        setResizable(true);
+        setLayout(new GridLayout(1,2));
 
+
+
+
+        // Creaci贸n del panel con la imagen de fondo
         JPanel panel = new JPanel();
-        JLabel userLabel = new JLabel("Usuario:");
-        JLabel passLabel = new JLabel("Contrase馻:");
-        usernameField = new JTextField(15);
-        passwordField = new JPasswordField(15);
-        JButton loginButton = new JButton("Iniciar Sesi髇");
+        JPanel panelBg = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon image = new ImageIcon("C:\\Users\\steve\\OneDrive\\Escritorio\\Proyectos programcion\\Sistema-Maranon-final\\src\\main\\java\\bglog.jpg"); // Ruta de la imagen de fondo
+                Image backgroundImage = image.getImage();
+                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        panel.setLayout(null);
 
+        // Campos de texto para nombre de usuario y contrase帽a
+        usernameField = new JTextField();
+        usernameField.setBounds(120, 80, 150, 25);
+        panel.add(usernameField);
+
+        passwordField = new JPasswordField();
+        passwordField.setBounds(120, 120, 150, 25);
+        panel.add(passwordField);
+
+        // Etiquetas para los campos
+        JLabel usernameLabel = new JLabel("Username:");
+        usernameLabel.setBounds(40, 80, 80, 25);
+        panel.add(usernameLabel);
+
+        JLabel passwordLabel = new JLabel("Password:");
+        passwordLabel.setBounds(40, 120, 80, 25);
+        panel.add(passwordLabel);
+
+        // Bot贸n de login
+        JButton loginButton = new JButton("Login");
+        loginButton.setBounds(150, 160, 80, 25);
         loginButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
+                // Aqu铆 puedes agregar la l贸gica para validar el usuario y contrase帽a
                 String username = usernameField.getText();
-                String password = new String(passwordField.getPassword());
-
+                String password = String.valueOf(passwordField.getPassword());
+                // Ejemplo b谩sico de validaci贸n
                 if (username.equals("usuario") && password.equals("11111")) {
                     dispose();
                     openMainFrame();
+                    JOptionPane.showMessageDialog(null, "Login exitoso");
                 } else {
-                    JOptionPane.showMessageDialog(LoginFrame.this, "Usuario o contrase馻 incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Usuario o contrase帽a incorrectos");
                 }
             }
         });
+        setLocationRelativeTo(null);
 
-        panel.add(userLabel);
-        panel.add(usernameField);
-        panel.add(passLabel);
-        panel.add(passwordField);
         panel.add(loginButton);
 
+
         add(panel);
+        add(panelBg);
         setVisible(true);
     }
 

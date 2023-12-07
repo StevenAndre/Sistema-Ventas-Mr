@@ -7,11 +7,13 @@ public class MenuPrincipal extends JFrame {
         public MenuPrincipal() {
             setTitle("Sistema de Ventas marañon");
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            ImageIcon icon = new ImageIcon("C:/Users/steve/OneDrive//Escritorio/Proyectos programcion//Sistema-Maranon-final//src//main//java//logo.jpeg");
+            Image image = icon.getImage();
+            setIconImage(image);
             setLocationRelativeTo(null);
             add(new PanelPrincipal());
-            setBounds(200,200,900,500);
-
-
+            setBounds(200,100,1200,700);
+            setResizable(false);
         }
 }
 
@@ -23,9 +25,10 @@ class PanelPrincipal extends JPanel{
 
 
         JPanel headerPanel = new JPanel();
+        headerPanel.setBackground(new Color(227, 211, 147, 236));
         headerPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        JLabel titleLabel = new JLabel("Menu princiapl Sistema de Ventas");
+        JLabel titleLabel = new JLabel("Menu principal Sistema de Ventas");
 
 
         headerPanel.add(titleLabel);
