@@ -146,15 +146,15 @@ public class VentasPanel extends JPanel {
 
         boton4.addActionListener((a)->{
 
-            //TODO ver detalles de venta
-            /*
-            Venta v=actualizarForm();
+
+
+            Venta v=ventaSelected();
             if(v==null)
                 return;
             operaciones.removeAll();
-            operaciones.add(new FormularioPanel (v), BorderLayout.CENTER);
+            operaciones.add(new PanelDetalles (v.getId()), BorderLayout.CENTER);
             operaciones.revalidate();
-            operaciones.repaint();*/
+            operaciones.repaint();
 
 
         });
@@ -294,6 +294,45 @@ public class VentasPanel extends JPanel {
 
     }
 
+
+    class PanelDetalles extends JPanel{
+        private RepositorioDetallesVentas rpDV= new RepositorioDetallesVentas();
+        public PanelDetalles(int ventaId){
+            List<DetalleVenta> detalles=rpDV.obtenerDetallesPorVenta(ventaId);
+            String[] columnas = {"Producto","Precio", "Cantidad", "Importe"};
+            DefaultTableModel model = new DefaultTableModel(columnas, 0);
+            double total=0;
+            for(DetalleVenta d:detalles ){
+                double importe=d.getPrecio()*d.getCantidad();
+                total+=importe;
+                model.addRow(new Object[]{d.getProducto().getNombre(),d.getPrecio(),d.getCantidad(),importe});
+            }
+            model.addRow(new Object[]{"","","TOTAL:",total});
+
+            table = new JTable(model);
+            table.setPreferredScrollableViewportSize(new Dimension(400, table.getPreferredSize().height));
+
+            for (int i = 0; i < table.getColumnCount(); i++) {
+                table.getColumnModel().getColumn(i).setPreferredWidth(100);
+            }
+            table.getColumn("Producto").setPreferredWidth(300);
+            table.setFont(new Font("Arial", Font.PLAIN, 16));
+
+
+            JScrollPane scrollPane = new JScrollPane(table);
+            scrollPane.setPreferredSize(new Dimension(800, 100));
+
+
+            table.setFillsViewportHeight(true);
+            JLabel titulo= new JLabel("DETALLES VENTA N°:"+ventaId);
+            titulo.setFont(new Font("Arial", Font.ITALIC, 18));
+
+
+            add(scrollPane, BorderLayout.CENTER);
+
+
+        }
+    }
 
 
     class PanelListado extends JPanel{

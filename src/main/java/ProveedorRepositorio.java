@@ -201,8 +201,6 @@ public class ProveedorRepositorio {
             // Cerrar recursos
             rs.close();
             stmt.close();
-            conn.close();
-
             System.out.println("El reporte se generó exitosamente.");
 
         } catch (SQLException | IOException e) {

@@ -87,7 +87,7 @@ public class ProveedorPanel extends JPanel {
             setLayout(new BorderLayout());
             JPanel panelCabecera= new JPanel();
             panelCabecera.setLayout(new GridLayout(3,1));
-            JLabel titulo = new JLabel("MODULO PRODUCTOS");
+            JLabel titulo = new JLabel("MODULO PROVEEDORES");
             titulo.setFont(new Font("Arial", Font.BOLD, 24));
 
             JPanel panelBusqueda= new JPanel();

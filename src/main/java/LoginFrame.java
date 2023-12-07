@@ -63,7 +63,7 @@ public class LoginFrame extends JFrame {
                 if (rp.login(username,password)) {
                     dispose();
                     openMainFrame();
-                    JOptionPane.showMessageDialog(null, "Login exitoso");
+                    JOptionPane.showMessageDialog(null, "Bievenido "+RepositorioUsuario.usuarioActual.getNombre());
                 } else {
                     JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
                 }

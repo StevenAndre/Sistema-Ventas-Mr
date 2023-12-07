@@ -190,7 +190,7 @@ public class RepositorioVentas {
             // Cerrar recursos
             rs.close();
             stmt.close();
-            conn.close();
+
 
             System.out.println("El reporte de ventas se generó exitosamente.");
 

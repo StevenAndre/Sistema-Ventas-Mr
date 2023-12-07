@@ -26,7 +26,7 @@ class PanelPrincipal extends JPanel{
 
 
         JMenuBar menuBar = new JMenuBar();
-        menuBar.setBackground(new Color(90, 187, 177));
+        menuBar.setBackground(new Color(220, 193, 206, 107));
 
         JMenu fileMenu = new JMenu("File");
         fileMenu.add(new JMenuItem("New"));
@@ -150,7 +150,7 @@ class PanelPrincipal extends JPanel{
         button.setBackground(color);
         button.setForeground(Color.WHITE);
         button.setFocusPainted(false);
-        button.setPreferredSize(new Dimension(200, 40)); // Ajustar el tamaño según sea necesario
+        button.setPreferredSize(new Dimension(200, 40));
         button.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15)); // Agregar espacios internos al botón
         return button;
     }

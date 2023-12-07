@@ -199,7 +199,6 @@ public class RepositorioCliente {
         // Cerrar recursos
         rs.close();
         stmt.close();
-        conn.close();
 
         System.out.println("El reporte se generó exitosamente.");
 
