@@ -20,14 +20,7 @@ public class ProveedorRepositorio {
 
     public ProveedorRepositorio() {
 
-        try {
-            String url = "jdbc:mysql://localhost:3306/sisvenmaranon";
-            String user = "root";
-            String password = "steandsql03";
-            conn = DriverManager.getConnection(url, user, password);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        conn=ConexionBD.getConection();
 
     }
 

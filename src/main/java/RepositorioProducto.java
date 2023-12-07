@@ -19,15 +19,29 @@ public class RepositorioProducto {
 
     public RepositorioProducto() {
 
+        conn=ConexionBD.getConection();
+
+    }
+
+    public Producto obtenerProductoPorId(int id) {
+        Producto producto = null;
+        String query = "select * from productos where id = " + id;
         try {
-            String url = "jdbc:mysql://localhost:3306/sisvenmaranon";
-            String user = "root";
-            String password = "steandsql03";
-            conn = DriverManager.getConnection(url, user, password);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            if (rs.next()) {
+                producto = new Producto(rs.getInt("Id"),
+                        rs.getString("nombre"),
+                        rs.getString("descripcion"),
+                        rs.getInt("stock"),
+                        rs.getDouble("precio")
+                );
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
+        return producto;
     }
 
     public List<Producto> filtrarProductos(String argument) {

@@ -59,7 +59,8 @@ public class LoginFrame extends JFrame {
                 String username = usernameField.getText();
                 String password = String.valueOf(passwordField.getPassword());
                 // Ejemplo básico de validación
-                if (username.equals("usuario") && password.equals("11111")) {
+                RepositorioUsuario rp= new RepositorioUsuario();
+                if (rp.login(username,password)) {
                     dispose();
                     openMainFrame();
                     JOptionPane.showMessageDialog(null, "Login exitoso");

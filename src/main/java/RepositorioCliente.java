@@ -22,14 +22,7 @@ public class RepositorioCliente {
     private Connection conn = null;
         public RepositorioCliente(){
 
-            try {
-                String url       = "jdbc:mysql://localhost:3306/sisvenmaranon";
-                String user      = "root";
-                String password  = "steandsql03";
-                conn = DriverManager.getConnection(url, user, password);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            conn=ConexionBD.getConection();
 
         }
 
@@ -59,6 +52,28 @@ public class RepositorioCliente {
 
         return clientes;
     }
+
+    public Cliente obtenerClientePorId(int id) {
+        Cliente cliente = null;
+        String query = "select * from clientes where id = " + id;
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            if (rs.next()) {
+                cliente = new Cliente( rs.getInt("Id"),
+                        rs.getString("Nombre"),
+                        rs.getString("Direccion"),
+                        rs.getInt("Edad"),
+                        rs.getString("Email")
+                );
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return cliente;
+    }
+
 
     public void updateCliente(Cliente c){
             int id=c.getId();
