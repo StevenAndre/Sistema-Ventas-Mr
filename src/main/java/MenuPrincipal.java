@@ -38,13 +38,13 @@ class PanelPrincipal extends JPanel{
         menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.PAGE_AXIS));
         menuPanel.setBackground(new Color(220, 193, 206, 107));
 
-        JButton btnOpcion1 = new JButton("Opci�nn 1");
-        JButton btnOpcion2 = new JButton("Opci�n 2");
+        JButton btnOpcion1 = new JButton("Ventas");
+        JButton btnProveedores = new JButton("Proveedores");
         JButton btnProductos = new JButton("Productos");
         JButton btnClientes = new JButton("Clientes");
 
         menuPanel.add(btnOpcion1);
-        menuPanel.add(btnOpcion2);
+        menuPanel.add(btnProveedores);
         menuPanel.add(btnProductos);
         menuPanel.add(btnClientes);
 
@@ -90,11 +90,11 @@ class PanelPrincipal extends JPanel{
             }
         });
 
-        btnOpcion2.addActionListener(new ActionListener() {
+        btnProveedores.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
                 viewPanel.removeAll();
-                viewPanel.add(new JLabel("Vista de la Opci�n 2"), BorderLayout.CENTER);
+                viewPanel.add(new ProveedorPanel(), BorderLayout.CENTER);
                 viewPanel.revalidate();
                 viewPanel.repaint();
             }

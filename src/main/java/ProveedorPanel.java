@@ -1,4 +1,4 @@
-/*import javax.swing.*;
+ /*import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -73,17 +73,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class ProductosPanel extends JPanel {
+public class ProveedorPanel extends JPanel {
 
     private JPanel opcionProductoPanel;
     private JPanel viewPanel;
     private JTable table;
     private  JPanel  operaciones= new JPanel();
-    private RepositorioProducto rp;
-    private ProveedorRepositorio proveedorRp;
 
-    public ProductosPanel() {
-            rp= new RepositorioProducto();
+    private ProveedorRepositorio rp;
+
+    public ProveedorPanel() {
+            rp= new ProveedorRepositorio();
             setLayout(new BorderLayout());
             JPanel panelCabecera= new JPanel();
             panelCabecera.setLayout(new GridLayout(3,1));
@@ -103,10 +103,10 @@ public class ProductosPanel extends JPanel {
 
             titulo.setHorizontalAlignment(SwingConstants.CENTER);
             JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 10));
-            JButton boton1 = new JButton("Nuevo Producto");
-            JButton boton2 = new JButton("Listar Productos");
-            JButton boton3 = new JButton("Eliminar Producto");
-            JButton boton4 = new JButton("Actualizar Producto");
+            JButton boton1 = new JButton("Registrar Proveedor");
+            JButton boton2 = new JButton("Listar Proveedores");
+            JButton boton3 = new JButton("Eliminar Proveedor");
+            JButton boton4 = new JButton("Actualizar Proveedor");
             JButton boton5 = new JButton("Reporte");
             boton1.setBackground(Color.GREEN);
             boton2.setBackground(Color.CYAN);
@@ -140,10 +140,10 @@ public class ProductosPanel extends JPanel {
                 public void insertUpdate(DocumentEvent e) {
 
 
-                    java.util.List<Producto> productos=rp.filtrarProductos(buscarText.getText());
+                    List<Proveedor> proveedores=rp.filtrarProveedores(buscarText.getText());
 
                     operaciones.removeAll();
-                    operaciones.add(new PanelListado(productos), BorderLayout.CENTER);
+                    operaciones.add(new PanelListado(proveedores), BorderLayout.CENTER);
                     operaciones.revalidate();
                     operaciones.repaint();
 
@@ -153,10 +153,10 @@ public class ProductosPanel extends JPanel {
 
                 @Override
                 public void removeUpdate(DocumentEvent e) {
-                    java.util.List<Producto> productos=rp.filtrarProductos(buscarText.getText());
+                    List<Proveedor> proveedores=rp.filtrarProveedores(buscarText.getText());
 
                     operaciones.removeAll();
-                    operaciones.add(new PanelListado(productos), BorderLayout.CENTER);
+                    operaciones.add(new PanelListado(proveedores), BorderLayout.CENTER);
                     operaciones.revalidate();
                     operaciones.repaint();
                     System.out.println("Texto eliminado: " + buscarText.getText());
@@ -190,11 +190,11 @@ public class ProductosPanel extends JPanel {
 
             boton3.addActionListener((a)->{
 
-                Producto p=actualizarForm();
+                Proveedor p=actualizarForm();
                 if (p == null) {
                     return;
                 }
-                rp.deleteProducto(p.getId());
+                rp.deleteProveedor(p.getId());
                 operaciones.removeAll();
                 operaciones.add(new PanelListado(), BorderLayout.CENTER);
                 operaciones.revalidate();
@@ -207,11 +207,11 @@ public class ProductosPanel extends JPanel {
 
             boton4.addActionListener((a)->{
 
-                Producto producto=actualizarForm();
-                if(producto==null)
+                Proveedor proveedor=actualizarForm();
+                if(proveedor==null)
                     return;
                 operaciones.removeAll();
-                operaciones.add(new FormularioPanel(producto), BorderLayout.CENTER);
+                operaciones.add(new FormularioPanel(proveedor), BorderLayout.CENTER);
                 operaciones.revalidate();
                 operaciones.repaint();
 
@@ -224,10 +224,10 @@ public class ProductosPanel extends JPanel {
 
         }
 
-        public Producto actualizarForm(){
+        public Proveedor actualizarForm(){
             int filaSeleccionada = table.getSelectedRow();
-            Producto producto= new Producto();
-            Object[] fila= new Object[6];
+            Proveedor proveedor= new Proveedor();
+            Object[] fila= new Object[5];
             if (filaSeleccionada != -1) {
                 TableModel modelo = table.getModel();
 
@@ -236,18 +236,18 @@ public class ProductosPanel extends JPanel {
                     fila[columna]= modelo.getValueAt(filaSeleccionada, columna);
                     System.out.println("Valor en la fila " + filaSeleccionada + ", columna " + columna + ": " + valorCelda);
                 }
-                producto.setId((int) fila[0]);
-                producto.setNombre((String) fila[1]);
-                producto.setDescripcion((String) fila[2]);
-                producto.setStock((int) fila[3]);
-                producto.setPrecio((double) fila[4]);
-                System.out.println(producto);
-                return producto;
+                proveedor.setId((int) fila[0]);
+                proveedor.setNombre((String) fila[1]);
+                proveedor.setTelefono((String) fila[2]);
+                proveedor.setDireccion((String) fila[3]);
+                proveedor.setEmail((String)fila[4]);
+                System.out.println(proveedor);
+                return proveedor;
 
             } else {
                 JOptionPane
                         .showMessageDialog(this,
-                                "Tienes que seleccionar un producto",
+                                "Tienes que seleccionar un proveedor",
                                 "Error", JOptionPane.ERROR_MESSAGE);
 
                 System.out.println("Ninguna fila seleccionada.");
@@ -268,34 +268,34 @@ public class ProductosPanel extends JPanel {
         class FormularioPanel extends JPanel {
 
             private JTextField nombreField;
-            private JTextField descripcionField;
-            private JTextField stockField;
-            private JTextField precioField;
-            private JComboBox<Proveedor> comboBox;
+            private JTextField telefonoField;
+            private JTextField direccionField;
+            private JTextField emailField;
+
             private JButton botonConfirmar= new JButton();
 
 
             public FormularioPanel() {
-                proveedorRp= new ProveedorRepositorio();
+
                 setLayout(new BorderLayout());
-                JLabel titulo = new JLabel("INSERTAR PRODUCTO");
+                JLabel titulo = new JLabel("REGISTRAR PROVEEDOR");
                 titulo.setFont(new Font("Arial", Font.BOLD, 24));
                 titulo.setBackground(Color.GREEN);
-                JPanel formPanel= new JPanel(new GridLayout(6, 2, 5, 5));
+                JPanel formPanel= new JPanel(new GridLayout(5, 2, 5, 5));
                 JLabel nombreLabel = new JLabel("Nombre:");
                 nombreField = new JTextField();
 
-                JLabel descriptioLabel = new JLabel("Descripcion:");
-                descripcionField = new JTextField();
+                JLabel telefonoLabel = new JLabel("Telefono:");
+                telefonoField = new JTextField();
 
-                JLabel stockLable = new JLabel("Stock:");
-                stockField = new JTextField();
+                JLabel direccLabel = new JLabel("Direccion:");
+                direccionField = new JTextField();
 
-                JLabel precioLabel = new JLabel("Precio:");
-                precioField = new JTextField();
+                JLabel emailLabel = new JLabel("Email:");
+                emailField = new JTextField();
 
-                JLabel proveedorLabel= new JLabel("Proveedor");
-                comboBox= new JComboBox<>(proveedorRp.listarProveedores().toArray(new Proveedor[0]));
+
+
 
                 botonConfirmar.setBackground(Color.ORANGE);
                 botonConfirmar.setText("Ingresar");
@@ -303,24 +303,17 @@ public class ProductosPanel extends JPanel {
                 botonConfirmar.addActionListener((a)->{
                     crearProducto();
                 });
-                comboBox.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        Proveedor selectedValue =(Proveedor) comboBox.getSelectedItem();
-                        System.out.println(selectedValue);
-                    }
-                });
+
 
 
                 formPanel.add(nombreLabel);
                 formPanel.add(nombreField);
-                formPanel.add(descriptioLabel);
-                formPanel.add(descripcionField);
-                formPanel.add(stockLable);
-                formPanel.add(stockField);
-                formPanel.add(precioLabel);
-                formPanel.add(precioField);
-                formPanel.add(proveedorLabel);
-                formPanel.add(comboBox);
+                formPanel.add(telefonoLabel);
+                formPanel.add(telefonoField);
+                formPanel.add(direccLabel);
+                formPanel.add(direccionField);
+                formPanel.add(emailLabel);
+                formPanel.add(emailField);
                 add(titulo,BorderLayout.NORTH);
                 add(formPanel,BorderLayout.CENTER);
                 add(botonConfirmar,BorderLayout.SOUTH);
@@ -328,87 +321,87 @@ public class ProductosPanel extends JPanel {
 
             }
 
-            public FormularioPanel(Producto producto) {
+            public FormularioPanel(Proveedor proveedor) {
                 setLayout(new BorderLayout());
                 JLabel titulo = new JLabel("ACTUALIZAR PRODUCTO");
                 titulo.setFont(new Font("Arial", Font.BOLD, 24));
                 titulo.setBackground(Color.GREEN);
-                JPanel formPanel= new JPanel(new GridLayout(6, 2, 5, 5));
+                JPanel formPanel= new JPanel(new GridLayout(5, 2, 5, 5));
                 JLabel nombreLabel = new JLabel("Nombre:");
                 nombreField = new JTextField();
 
-                JLabel descriptioLabel = new JLabel("Descripcion:");
-                descripcionField = new JTextField();
+                JLabel telefonoLabel = new JLabel("Telefono:");
+                telefonoField = new JTextField();
 
-                JLabel stockLable = new JLabel("Stock:");
-                stockField = new JTextField();
+                JLabel direccLabel = new JLabel("Direccion:");
+                direccionField = new JTextField();
 
-                JLabel precioLabel = new JLabel("Precio:");
-                precioField = new JTextField();
+                JLabel emailLabel = new JLabel("Email:");
+                emailField = new JTextField();
                 botonConfirmar.setBackground(Color.ORANGE);
                 botonConfirmar.setText("Ingresar");
 
-                nombreField.setText(producto.getNombre());
-                descripcionField.setText(producto.getDescripcion());
-                stockField.setText(producto.getStock()+"");
-                precioField.setText(producto.getPrecio()+"");
+                nombreField.setText(proveedor.getNombre());
+                telefonoField.setText(proveedor.getTelefono());
+                direccionField.setText(proveedor.getDireccion());
+                emailField.setText(proveedor.getEmail());
                 botonConfirmar.setBackground(Color.yellow);
                 botonConfirmar.setText("Actualizar");
 
 
 
 
+
                 formPanel.add(nombreLabel);
                 formPanel.add(nombreField);
-                formPanel.add(descriptioLabel);
-                formPanel.add(descripcionField);
-                formPanel.add(stockLable);
-                formPanel.add(stockField);
-                formPanel.add(precioLabel);
-                formPanel.add(precioField);
+                formPanel.add(telefonoLabel);
+                formPanel.add(telefonoField);
+                formPanel.add(direccLabel);
+                formPanel.add(direccionField);
+                formPanel.add(emailLabel);
+                formPanel.add(emailField);
                 add(titulo,BorderLayout.NORTH);
                 add(formPanel,BorderLayout.CENTER);
                 add(botonConfirmar,BorderLayout.SOUTH);
 
                 botonConfirmar.addActionListener((a)->{
-                    actualizarProducto(producto.getId());
+                    actualizarPoveedor(proveedor.getId());
                 });
                 add(botonConfirmar,BorderLayout.SOUTH);
 
             }
 
 
-            public void actualizarProducto(int id){
-                Producto producto= new Producto();
-                producto.setId(id);
-                producto.setNombre(nombreField.getText());
-                producto.setDescripcion(descripcionField.getText());
-                producto.setStock(Integer.parseInt(stockField.getText()));
-                producto.setPrecio(Double.parseDouble(precioField.getText()));
+            public void actualizarPoveedor(int id){
+                Proveedor proveedor= new Proveedor();
+                proveedor.setId(id);
+                proveedor.setNombre(nombreField.getText());
+                proveedor.setTelefono(telefonoField.getText());
+                proveedor.setDireccion(direccionField.getText());
+                proveedor.setEmail(emailField.getText());
 
-                rp.updateProducto(producto);
+                rp.updateProveedor(proveedor);
                 operaciones.removeAll();
                 operaciones.add(new PanelListado(), BorderLayout.CENTER);
                 operaciones.revalidate();
                 operaciones.repaint();
-                JOptionPane.showMessageDialog(null, "Producto con ID:"+id+" actulizado con exito");
+                JOptionPane.showMessageDialog(null, "Proveedor con ID:"+id+" actulizado con exito");
             }
 
             public void crearProducto(){
-                Producto producto= new Producto();
-                producto.setNombre(nombreField.getText());
-                producto.setDescripcion(descripcionField.getText());
-                producto.setStock(Integer.parseInt(stockField.getText()));
-                producto.setPrecio(Double.parseDouble(precioField.getText()));
-                producto.setProveedor((Proveedor)comboBox.getSelectedItem());
+                Proveedor proveedor= new Proveedor();
+                proveedor.setNombre(nombreField.getText());
+                proveedor.setTelefono(telefonoField.getText());
+                proveedor.setDireccion(direccionField.getText());
+                proveedor.setEmail(emailField.getText());
 
 
-                rp.insertProducto(producto);
+                rp.insertProveedor(proveedor);
                 operaciones.removeAll();
                 operaciones.add(new PanelListado(), BorderLayout.CENTER);
                 operaciones.revalidate();
                 operaciones.repaint();
-                JOptionPane.showMessageDialog(null, "Producto ingresado con exito");
+                JOptionPane.showMessageDialog(null, "PRoveedor ingresado con exito");
             }
 
 
@@ -417,12 +410,12 @@ public class ProductosPanel extends JPanel {
 
         class PanelListado extends JPanel{
             public PanelListado(){
-                java.util.List<Producto> productos= rp.listarProductos();
-                String[] columnas = {"Id","Nombre", "Descripcion", "stock", "Precio","Proveedor"};
+                List<Proveedor> proveedores= rp.listarProveedores();
+                String[] columnas = {"Id","Nombre", "Telefono", "Direccion", "Email"};
                 DefaultTableModel model = new DefaultTableModel(columnas, 0);
-                for(Producto p:productos ){
+                for(Proveedor p:proveedores ){
 
-                    model.addRow(new Object[]{p.getId(),p.getNombre(), p.getDescripcion(), p.getStock(), p.getPrecio(),p.getProveedor().getNombre()});
+                    model.addRow(new Object[]{p.getId(),p.getNombre(), p.getTelefono(), p.getDireccion(), p.getEmail()});
                 }
 
                 table = new JTable(model);
@@ -432,9 +425,9 @@ public class ProductosPanel extends JPanel {
                 for (int i = 0; i < table.getColumnCount(); i++) {
                     table.getColumnModel().getColumn(i).setPreferredWidth(100);
                 }
-                table.getColumn("Descripcion").setPreferredWidth(300);
+                table.getColumn("Direccion").setPreferredWidth(300);
                 table.getColumn("Nombre").setPreferredWidth(300);
-                table.getColumn("Proveedor").setPreferredWidth(300);
+                table.getColumn("Email").setPreferredWidth(300);
 
                 table.setFont(new Font("Arial", Font.PLAIN, 16));
 
@@ -449,13 +442,13 @@ public class ProductosPanel extends JPanel {
 
 
             }
-            public PanelListado(java.util.List<Producto> productosF){
-                java.util.List<Producto> productos=productosF;
-                String[] columnas = {"Id","Nombre", "Descripcion", "stock", "Precio","Proveedor"};
+            public PanelListado(List<Proveedor> proveedoresF){
+                List<Proveedor> proveedores=proveedoresF;
+                String[] columnas = {"Id","Nombre", "Telefono", "Direccion", "Email"};
                 DefaultTableModel model = new DefaultTableModel(columnas, 0);
-                for(Producto p:productos ){
+                for(Proveedor p:proveedores ){
 
-                    model.addRow(new Object[]{p.getId(),p.getNombre(), p.getDescripcion(), p.getStock(), p.getPrecio(),p.getProveedor().getNombre()});
+                    model.addRow(new Object[]{p.getId(),p.getNombre(), p.getTelefono(), p.getDireccion(), p.getEmail()});
                 }
 
                 table = new JTable(model);
@@ -465,9 +458,10 @@ public class ProductosPanel extends JPanel {
                 for (int i = 0; i < table.getColumnCount(); i++) {
                     table.getColumnModel().getColumn(i).setPreferredWidth(100);
                 }
-                table.getColumn("Descripcion").setPreferredWidth(300);
+                table.getColumn("Direccion").setPreferredWidth(300);
                 table.getColumn("Nombre").setPreferredWidth(300);
-                table.getColumn("Proveedor").setPreferredWidth(300);
+                table.getColumn("Email").setPreferredWidth(300);
+
 
                 table.setFont(new Font("Arial", Font.PLAIN, 16));
 
